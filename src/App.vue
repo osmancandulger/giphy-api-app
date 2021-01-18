@@ -1,12 +1,11 @@
 <template>
   <search v-on:requested="searchButton"></search>
-  <p v-if="loading">Loading..</p>
+  <div class="loader" v-if="loading"></div>
   <overview :gifs="gifs"></overview>
 </template>
 <script>
 import Search from "./components/Search.vue";
 import Overview from "./components/Overview.vue";
-
 export default {
   name: "App",
   components: {
@@ -24,7 +23,7 @@ export default {
       this.gifs = [];
       this.loading = true;
       fetch(
-        `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=dc6zaTOxFJmzC`
+        `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=XqGjeeGhKbIX3sdU1fysPXod0QGYmUUI`
       )
         .then((response) => response.json())
         .then((response) => {
@@ -34,7 +33,9 @@ export default {
     },
   },
   created() {
-    fetch("http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC")
+    fetch(
+      `http://api.giphy.com/v1/gifs/trending?api_key=XqGjeeGhKbIX3sdU1fysPXod0QGYmUUI`
+    )
       .then((response) => response.json())
       .then((response) => {
         this.gifs = response.data;
@@ -47,5 +48,34 @@ export default {
 <style>
 #app {
   font-family: Roboto, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.loader {
+  border: 15px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 15px solid #3498db;
+  border-right: 15px solid green;
+  width: 120px;
+  height: 120px;
+
+  animation: spin 0.4s linear infinite;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
