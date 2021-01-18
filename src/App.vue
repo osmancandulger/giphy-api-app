@@ -1,5 +1,6 @@
 <template>
-  <search></search>
+  <p v-if="loading">Loading..</p>
+  <search @requested="searchButton"></search>
   <overview :gifs="gifs"></overview>
 </template>
 
@@ -15,13 +16,29 @@ export default {
   },
   data() {
     return {
+      loading: true,
       gifs: [],
     };
   },
+  methods: {
+    searchButton(search) {
+      this.gifs = [];
+      this.loading = true;
+      fetch(`http://api.giphy.com/v1/gifs/search?q=${search}&api_key=dc6zaTOxFJmzC`)
+        .then((response) => response.json())
+        .then((response) => {
+          this.gifs = response.data;
+          this.loading = false;
+        });
+    },
+  },
   created() {
-    fetch("http://api.giphy.com/v1/stickers/trending?api_key=dc6zaTOxFJmzC")
+    fetch("http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC")
       .then((response) => response.json())
-      .then((response) => (this.gifs = response.data));
+      .then((response) => {
+        this.gifs = response.data;
+        this.loading = false;
+      });
   },
 };
 </script>

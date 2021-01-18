@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     searchButton() {
-      console.log(this.search);
+      this.$emit("requested", this.search);
     },
   },
 };
