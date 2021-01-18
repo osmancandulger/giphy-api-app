@@ -1,9 +1,8 @@
 <template>
+  <search v-on:requested="searchButton"></search>
   <p v-if="loading">Loading..</p>
-  <search @requested="searchButton"></search>
   <overview :gifs="gifs"></overview>
 </template>
-
 <script>
 import Search from "./components/Search.vue";
 import Overview from "./components/Overview.vue";
@@ -24,7 +23,9 @@ export default {
     searchButton(search) {
       this.gifs = [];
       this.loading = true;
-      fetch(`http://api.giphy.com/v1/gifs/search?q=${search}&api_key=dc6zaTOxFJmzC`)
+      fetch(
+        `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=dc6zaTOxFJmzC`
+      )
         .then((response) => response.json())
         .then((response) => {
           this.gifs = response.data;
