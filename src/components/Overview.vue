@@ -34,6 +34,6 @@ li {
   transition: 0.4s all;
 }
 li:hover {
-  transform: scale(1.1) rotate(-15deg);
+  transform: scale(1.1);
 }
 </style>

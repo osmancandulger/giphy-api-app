@@ -1,6 +1,8 @@
 <template>
   <search v-on:requested="searchButton"></search>
   <div class="loader" v-if="loading"></div>
+  <h1 v-if="gifs.length == 0 && !loading">There is no search</h1>
+
   <overview :gifs="gifs"></overview>
 </template>
 <script>
