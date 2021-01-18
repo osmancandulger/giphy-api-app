@@ -14,6 +14,7 @@ export default {
   },
   data() {
     return {
+      api_key: process.env.VUE_APP_API_SECRET_KEY,
       loading: true,
       gifs: [],
     };
@@ -23,7 +24,7 @@ export default {
       this.gifs = [];
       this.loading = true;
       fetch(
-        `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=XqGjeeGhKbIX3sdU1fysPXod0QGYmUUI`
+        `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=${this.api_key}`
       )
         .then((response) => response.json())
         .then((response) => {
@@ -33,9 +34,7 @@ export default {
     },
   },
   created() {
-    fetch(
-      `http://api.giphy.com/v1/gifs/trending?api_key=XqGjeeGhKbIX3sdU1fysPXod0QGYmUUI`
-    )
+    fetch(`http://api.giphy.com/v1/gifs/trending?api_key=${this.api_key}`)
       .then((response) => response.json())
       .then((response) => {
         this.gifs = response.data;
