@@ -1,12 +1,32 @@
 <template>
   <div class="search-bar">
-    <input type="text" placeholder="Put some words in here !" />
-    <button>Find My Mood</button>
+    <input
+      placeholder="Put some words in here !"
+      onfocus="this.placeholder=''"
+      onblur="this.placeholder='Put some words in here !'"
+      type="text"
+      v-model="search"
+      v-on:keypress.enter="searchButton"
+    />
+    <button @click="searchButton">
+      Find My Mood
+    </button>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      search: "",
+    };
+  },
+  methods: {
+    searchButton() {
+      console.log(this.search);
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -20,6 +40,7 @@ export default {};
     width: 350px;
     height: 45px;
     border-radius: 15px;
+    padding-left: 15px;
     outline: none;
     border: none;
     background: #bfdad3;
@@ -38,7 +59,11 @@ export default {};
     border-radius: 15px;
     outline: none;
     cursor: pointer;
-    
+    transition: 0.4s all;
+  }
+  button:hover {
+    transform: scale(1.06);
+    color: #87a2a8;
   }
 }
 </style>
